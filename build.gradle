@@ -13,11 +13,28 @@ buildscript {
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 archivesBaseName = 'cs2-editor'
 
 version = '1.3'
+
+sourceSets {
+    sourceSets.main{
+        java{
+            srcDir 'src/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
 
 repositories {
     jcenter()
@@ -26,13 +43,13 @@ repositories {
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 
@@ -48,6 +65,8 @@ dependencies {
     implementation "org.eclipse.jetty:jetty-http:$jetty_version"
     implementation "org.eclipse.jetty:jetty-util:$jetty_version"
     implementation 'javax.servlet:javax.servlet-api:3.1.0'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: '11.0.2'
+
 
     implementation 'org.fxmisc.richtext:richtextfx:0.10.5'
     implementation 'com.google.code.gson:gson:2.8.6'
